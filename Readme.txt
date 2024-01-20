@@ -1,6 +1,6 @@
-Update 1.2.0
-
-
+Update 1.3.0
+    Все вроде готово
+    
 pip install fastapi
 pip install uvicorn
 pip install requests

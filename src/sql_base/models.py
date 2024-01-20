@@ -3,22 +3,22 @@ from pydantic import BaseModel
 # from datetime import date
 
 class chatsM(BaseModel):
-    mas_users: Optional[str] = None
+    mas_users: str
     mas_messages: Optional[str] = None
 
 class usersM(BaseModel):
-    f_name:str
-    s_name: str
-    password: str
-    email: str
+    f_name: Optional[str] = None
+    s_name: Optional[str] = None
+    password: Optional[str] = None
+    email: Optional[str] = None
     avatar: Optional[str] = None
 
     mas_friends: Optional[str] = None
     mas_chats: Optional[str] = None
 
 class LoginM(BaseModel):
+    password: str
     email: str
-    password: str 
 
 # import json
 # mas_id_friends = [1, 2, 3, 4, 5]

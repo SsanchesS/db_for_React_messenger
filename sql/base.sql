@@ -1,18 +1,18 @@
 CREATE TABLE chats(
   id INTEGER PRIMARY KEY,
-  mas_users TEXT DEFAULT NULL, -- mas_users = [1, 2, 3, 4, 5]
-  mas_messages TEXT DEFAULT NULL, -- mas_messages = [{"id":0,"sender_id":0,"content":"text","timetimestamp":"DATETIME","is_read":False}]
+  mas_users TEXT, -- mas_users = [1, 2, 3, 4, 5]
+  mas_messages TEXT DEFAULT NULL -- mas_messages = [{"id":0,"sender_id":0,"content":"text","timetimestamp":"DATETIME","is_read":False}]
   -- FOREIGN KEY (mas_users) REFERENCES users (id),
 );
 CREATE TABLE users(
   id INTEGER PRIMARY KEY,
-  f_name TEXT DEFAULT NULL,
-  s_name TEXT DEFAULT NULL,
-  password TEXT DEFAULT NULL,
-  email TEXT DEFAULT NULL,
+  f_name TEXT,
+  s_name TEXT,
+  password TEXT,
+  email TEXT UNIQUE,
   avatar TEXT DEFAULT NULL,
   mas_friends TEXT DEFAULT NULL, -- mas_friends = [1, 2, 3, 4, 5]
-  mas_chats TEXT DEFAULT NULL, -- mas_chats = [1, 2, 3, 4, 5]
+  mas_chats TEXT DEFAULT NULL -- mas_chats = [1, 2, 3, 4, 5]
   -- FOREIGN KEY (mas_chats) REFERENCES chats (id)
 );
 -- import json

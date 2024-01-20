@@ -1,33 +1,36 @@
 from sql_base.base import base_worker
 from sql_base.models import usersM
+import sqlite3
 
 def get_user(id) -> int:
     get_user = base_worker.insert_data(f"SELECT * FROM users WHERE id = {id}",())
     return get_user
 
 def new_user(user: usersM) -> int:
-
+    
     insert_fields = ["f_name", "s_name", "password","email"]
-    insert_values = [user.f_name, user.s_name, user.password,user.email]
-
+    insert_values = [f"'{user.f_name}'",f"'{user.s_name}'",f"'{user.password}'",f"'{user.email}'"]
     if user.avatar is not None:
         insert_fields.append("avatar")
         insert_values.append(f"'{user.avatar}'")
     else:
-        default_avatar = ""
+        default_avatar = "default_avatar"
         insert_fields.append("avatar")
-        insert_values.append(f"'{default_avatar}'")
+        insert_values.append(f"'{default_avatar}'") 
 
     fields_str = ', '.join(insert_fields)
     values_str = ', '.join(insert_values)
 
-    new_id = base_worker.insert_data(f"""
+    try:
+        new_id = base_worker.insert_data(f"""
         INSERT INTO users ({fields_str})
         VALUES ({values_str})
         RETURNING id;
-    """, ())
-    
-    return new_id
+        """, ())
+        return new_id
+    except sqlite3.IntegrityError as e:
+        print(f"Error: {e}")
+        return "Этот email уже занят"
 
 def upd_user(id, user: usersM) -> int:
 

@@ -1,4 +1,6 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
 import uvicorn
 
 from routers.chats import chats_router
@@ -18,13 +20,26 @@ else:
     
 app = FastAPI()
 
+# CORS
+origins = [
+    "http://localhost:3000",  # адрес клиентского приложения
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 @app.get("/")
 def main_page():
     return {'page': 'Connection in correct'}
     
 app.include_router(chats_router, prefix='/chats') # post('http://127.0.0.1:8000/login', json=data)
 app.include_router(users_router, prefix='/users')
-app.include_router(login_router, prefix='/login')
+app.include_router(login_router, prefix='/auth')
 
 if __name__ == "__main__":
     uvicorn.run("server:app", port=8000, host="127.0.0.1", reload=True)
