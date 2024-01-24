@@ -1,6 +1,6 @@
 from typing import Optional
 from pydantic import BaseModel
-# from datetime import date
+from datetime import date
 
 class chatsM(BaseModel):
     mas_users: str
@@ -9,9 +9,11 @@ class chatsM(BaseModel):
 class usersM(BaseModel):
     f_name: Optional[str] = None
     s_name: Optional[str] = None
+    # birth : Optional[date] = None # date(1990, 1, 1),
+    avatar: Optional[str] = None
+
     password: Optional[str] = None
     email: Optional[str] = None
-    avatar: Optional[str] = None
 
     mas_friends: Optional[str] = None
     mas_chats: Optional[str] = None

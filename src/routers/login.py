@@ -8,6 +8,6 @@ login_router = APIRouter()
 def check_login_response(user:LoginM):
     user = check_login_request(user)
     if user is None:
-        return {"code": 401, "message": "email или password не верны, попробуй снова"}
+        return {"code": 401, "message": "email или password не верны, попробуй снова","user":None}
     else:
-        return {"code": 200, 'user': user}
+        return {"code": 200, "message": "Ты зареган",'user': user}
