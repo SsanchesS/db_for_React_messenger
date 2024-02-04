@@ -10,7 +10,7 @@ CREATE TABLE users(
   s_name TEXT,
   password TEXT,
   email TEXT UNIQUE,
-  avatar TEXT DEFAULT NULL,
+  avatar TEXT DEFAULT NULL, -- default убрать
   mas_friends TEXT DEFAULT NULL, -- mas_friends = [1, 2, 3, 4, 5]
   mas_chats TEXT DEFAULT NULL -- mas_chats = [1, 2, 3, 4, 5]
   -- FOREIGN KEY (mas_chats) REFERENCES chats (id)

@@ -8,26 +8,19 @@ users_router = APIRouter()
 def get_user(id: int):
     user = resolvers.users.get_user(id)
     if user is None:
-        return {"code": 404, 'message': f"Пользователь с таким id: {id} не найден"}
-    return {"code": 201, 'user': user}
-
-@users_router.post('/')
-def new_user(user: usersM):
-    new_id = resolvers.users.new_user(user)
-    if new_id is None or new_id =="Этот email уже занят":
-        return {"code": 404, 'message': f"Этот email уже занят"}
-    return {"code": 201, "id": new_id}
+        return {"code": 404, "message": f"Пользователь с таким id: {id} не найден","user":None}
+    return {"code": 201, "message": "Успешно",'user': user}
 
 @users_router.put('/{id}')
 def update_user(id: int, user: usersM):
-    upd_id = resolvers.users.upd_user(id, user)
-    if upd_id is None:
-        return {"code": 404, 'message': f"Пользователь с таким id: {id} не найден"}
-    return {"code": 201, "id": upd_id}
+    user = resolvers.users.upd_user(id, user)
+    if user is None:
+        return {"code": 404, "message": f"Пользователь с таким id: {id} не найден","user":None}
+    return {"code": 201, "message": "Успешно",'user': user}
 
 @users_router.delete('/{id}')
 def delete_user(id: int):
-    del_id = resolvers.users.del_user(id)
-    if del_id is None:
-        return {"code": 404, 'message': f"Пользователь с таким id: {id} не найден"}
-    return {"code": 201, "id": del_id}
+    user = resolvers.users.del_user(id)
+    if user is None:
+        return {"code": 404, "message": f"Пользователь с таким id: {id} не найден","user":None}
+    return {"code": 201, "message": "Успешно",'user': user}

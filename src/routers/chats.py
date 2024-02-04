@@ -8,24 +8,26 @@ chats_router = APIRouter()
 def get_chat(id: int):
     chat = resolvers.chats.get_chat(id)
     if chat is None:
-        return {"code": 404, 'message': f"Чат с таким id: {id} не найден"}
-    return {"code": 201, "chat": chat}
+        return {"code": 404, "message": f"Чат с таким id: {id} не найден","chat":None}
+    return {"code": 201, "message": "Успешно",'chat': chat}
 
 @chats_router.post('/')
 def new_chat(chat: chatsM):
-    new_id = resolvers.chats.new_chat(chat)
-    return {"code": 201, "id": new_id}
+    chat = resolvers.chats.new_chat(chat)
+    if chat is None:
+        return {"code": 404, "message": f"Ошибка","chat":None}
+    return {"code": 201, "message": "Успешно",'chat': chat}
 
 @chats_router.put('/{id}')
 def update_chat(id: int, chat: chatsM):
-    upd_id = resolvers.chats.upd_chat(id, chat)
-    if upd_id is None:
-        return {"code": 404, 'message': f"Чат с таким id: {id} не найден"}
-    return {"code": 201, "id": upd_id}
+    chat = resolvers.chats.upd_chat(id, chat)
+    if chat is None:
+        return {"code": 404, "message": f"Чат с таким id: {id} не найден","chat":None}
+    return {"code": 201, "message": "Успешно",'chat': chat}
 
 @chats_router.delete('/{id}')
 def delete_chat(id: int):
-    del_id = resolvers.chats.del_chat(id)
-    if del_id is None:
-        return {"code": 404, 'message': f"Чат с таким id: {id} не найден"}
-    return {"code": 201, "id": del_id}
+    chat = resolvers.chats.del_chat(id)
+    if chat is None:
+        return {"code": 404, "message": f"Чат с таким id: {id} не найден","chat":None}
+    return {"code": 201, "message": "Успешно",'chat': chat}

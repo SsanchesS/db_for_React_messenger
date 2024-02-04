@@ -5,7 +5,9 @@ import uvicorn
 
 from routers.chats import chats_router
 from routers.users import users_router
-from routers.login import login_router
+
+from routers.auth import auth_router
+from routers.registration import registration_router
 
 from sql_base.base import base_worker
 
@@ -39,7 +41,9 @@ def main_page():
     
 app.include_router(chats_router, prefix='/chats') # post('http://127.0.0.1:8000/login', json=data)
 app.include_router(users_router, prefix='/users')
-app.include_router(login_router, prefix='/auth')
+
+app.include_router(auth_router, prefix='/auth')
+app.include_router(registration_router, prefix='/registration')
 
 if __name__ == "__main__":
     uvicorn.run("server:app", port=8000, host="127.0.0.1", reload=True)

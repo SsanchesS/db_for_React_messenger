@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from datetime import date
 
 class chatsM(BaseModel):
-    mas_users: str
+    mas_users: Optional[str] = None
     mas_messages: Optional[str] = None
 
 class usersM(BaseModel):
