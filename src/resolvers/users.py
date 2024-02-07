@@ -14,7 +14,7 @@ def get_user(id):
             mas_friends = json.loads(user[6])
         if user[7]:
             mas_chats = json.loads(user[7])
-        user = {"id":user[0],"f_name":user[1],"s_name":user[2],"password":None,"email":user[4],"avatar":user[5],"mas_friends":mas_friends,"mas_chats":mas_chats}
+        user = {"id":user[0],"f_name":user[1],"s_name":user[2],"password":None,"email":user[4],"avatarFile":user[5],"mas_friends":mas_friends,"mas_chats":mas_chats}
         return user  
 
 def upd_user(id, user: usersM):
@@ -33,8 +33,8 @@ def upd_user(id, user: usersM):
     if user.email is not None and user.email != '':             ###############
         update_fields.append(f"email = '{user.email}'")
     
-    if user.avatar is not None and user.avatar != '':           ###############
-        update_fields.append(f"avatar = '{user.avatar}'")
+    if user.avatarFile is not None and user.avatarFile != '':           ###############
+        update_fields.append(f"avatarFile = '{user.avatarFile}'")
 
     if user.mas_friends is not None and user.mas_friends != '':
         update_fields.append(f"mas_friends = '{user.mas_friends}'")
@@ -54,7 +54,7 @@ def upd_user(id, user: usersM):
     if user_id is None:
         return None
     else:
-        user = {"id":user_id[0],"f_name":user.f_name,"s_name":user.s_name,"password":None,"email":user.email,"avatar":user.avatar,"mas_friends":user.mas_friends,"mas_chats":user.mas_chats}
+        user = {"id":user_id[0],"f_name":user.f_name,"s_name":user.s_name,"password":None,"email":user.email,"avatarFile":user.avatarFile,"mas_friends":user.mas_friends,"mas_chats":user.mas_chats}
         return user 
 
 def del_user(id):
@@ -62,5 +62,5 @@ def del_user(id):
     if del_id is None:
         return None
     else:
-        user = {"id":del_id[0],"f_name":None,"s_name":None,"password":None,"email":None,"avatar":None,"mas_friends":None,"mas_chats":None}
+        user = {"id":del_id[0],"f_name":None,"s_name":None,"password":None,"email":None,"avatarFile":None,"mas_friends":None,"mas_chats":None}
         return user 

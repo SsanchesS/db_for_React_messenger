@@ -5,15 +5,15 @@ from sql_base.base import base_worker
 def create_user(user: usersM):
     insert_fields = ["f_name", "s_name", "password","email"]
     insert_values = [f"'{user.f_name}'",f"'{user.s_name}'",f"'{user.password}'",f"'{user.email}'"]
-    if user.avatar is not None:
-        avatar_for_response = user.avatar
-        insert_fields.append("avatar")
-        insert_values.append(f"'{user.avatar}'")
+    if user.avatarFile is not None:
+        avatarFile_for_response = user.avatarFile
+        insert_fields.append("avatarFile")
+        insert_values.append(f"'{user.avatarFile}'")
     else:
-        default_avatar = "default_avatar"
-        avatar_for_response = default_avatar
-        insert_fields.append("avatar")
-        insert_values.append(f"'{default_avatar}'") 
+        default_avatarFile = "default_avatarFile"                ##################
+        avatarFile_for_response = default_avatarFile
+        insert_fields.append("avatarFile")
+        insert_values.append(f"'{default_avatarFile}'") 
 
     fields_str = ', '.join(insert_fields)
     values_str = ', '.join(insert_values)
@@ -24,7 +24,7 @@ def create_user(user: usersM):
         VALUES ({values_str})
         RETURNING id;
         """, ())
-        user = {"id":new_id[0],"f_name":user.f_name,"s_name":user.s_name,"password":None,"email":user.email,"avatar":avatar_for_response,"mas_friends":None,"mas_chats":None}
+        user = {"id":new_id[0],"f_name":user.f_name,"s_name":user.s_name,"password":None,"email":user.email,"avatarFile":avatarFile_for_response,"mas_friends":None,"mas_chats":None}
         return user
     except sqlite3.IntegrityError as e:
         print(f"Error: {e}")
