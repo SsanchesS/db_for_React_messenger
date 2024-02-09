@@ -9,9 +9,9 @@ CREATE TABLE users(
   f_name TEXT,
   s_name TEXT,
   city TEXT DEFAULT NULL,
-  -- birth DATE,
+  birth TIMESTAMP DEFAULT NULL, -- убрать NULL
 
-  avatar_file TEXT, -- default засунуть файл
+  avatar_file BLOB, -- file
   mas_photosFiles TEXT DEFAULT NULL, -- [1, 2, 3, 4, 5] - usersFiles
   mas_music TEXT DEFAULT NULL, -- [1, 2, 3, 4, 5] - musicFiles
 
@@ -28,17 +28,16 @@ CREATE TABLE usersPosts(
   id INTEGER PRIMARY KEY,
   user_id INTEGER, -- для надежности
   content TEXT,
-  file TEXT DEFAULT NULL -- file и запятую не забудь
-  -- timestamp DATE,
+  timestamp TIMESTAMP,
+  file BLOB DEFAULT NULL -- file
 );
 CREATE TABLE musicFiles(
   id INTEGER PRIMARY KEY,
   user_id INTEGER, -- для надежности
-  file TEXT -- file
+  file BLOB -- file
 );
 CREATE TABLE usersFiles(
   id INTEGER PRIMARY KEY,
   user_id INTEGER, -- для надежности
-  file TEXT -- file
+  file BLOB -- file
 );
--- Почему TEXT вместо Array ? плохо разобрался или не получилось

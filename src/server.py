@@ -45,5 +45,8 @@ app.include_router(users_router, prefix='/users')
 app.include_router(auth_router, prefix='/auth')
 app.include_router(registration_router, prefix='/registration')
 
+PORT = 8000
+HOST = "127.0.0.1"
+
 if __name__ == "__main__":
-    uvicorn.run("server:app", port=8000, host="127.0.0.1", reload=True)
+    uvicorn.run("server:app", port=PORT, host=HOST, reload=True)
