@@ -3,7 +3,6 @@ from sql_base.models import usersM
 from sql_base.base import base_worker
 
 def create_user(user:usersM):
-    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",user)
     insert_fields = ["f_name", "s_name", "password","email"]
     insert_values = [f"'{user.f_name}'",f"'{user.s_name}'",f"'{user.password}'",f"'{user.email}'"]
     if user.avatar_file is not None:

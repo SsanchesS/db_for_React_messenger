@@ -21,7 +21,7 @@ class usersM(BaseModel):
                                                                         #    print "it's a date"
                                                                         # else:
                                                                         #    print date
-    avatar_file: Optional[ Union[str, None] ] = None # file object   bytes
+    avatar_file: Optional[ Union[object, None] ] = None # file object   bytes
     mas_photosFiles: Optional[str] = None
     mas_music: Optional[str] = None
 

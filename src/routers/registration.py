@@ -6,7 +6,6 @@ registration_router = APIRouter()
 
 @registration_router.post('/')
 def registration(user:usersM):
-    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     user = create_user(user)
     if user is None:
         return {"code": 401, "message": "Этот email уже занят","user":None}
