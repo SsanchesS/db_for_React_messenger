@@ -1,7 +1,7 @@
 import sqlite3
 import json
-from sql_base.base import base_worker
-from sql_base.models import usersM
+from src.base import base_worker
+from src.models import usersM
 
 def get_user(id):
     user = base_worker.insert_data(f"SELECT * FROM users WHERE id = {id}",())

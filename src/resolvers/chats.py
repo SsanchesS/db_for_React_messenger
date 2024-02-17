@@ -1,7 +1,7 @@
 import json
 
-from sql_base.base import base_worker
-from sql_base.models import chatsM
+from src.base import base_worker
+from src.models import chatsM
 
 def get_chat(id):
     chat = base_worker.insert_data(f"SELECT * FROM chats WHERE id = {id}",())

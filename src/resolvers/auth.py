@@ -1,6 +1,6 @@
 import json
-from sql_base.models import LoginM 
-from sql_base.base import base_worker
+from src.models import LoginM 
+from src.base import base_worker
 
 def check_login_request(user: LoginM):
     user = base_worker.insert_data(f"SELECT * FROM users WHERE email = ? AND password = ?",(user.email,user.password))
