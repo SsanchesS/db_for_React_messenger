@@ -9,16 +9,16 @@ CREATE TABLE users(
   f_name TEXT,
   s_name TEXT,
   city TEXT DEFAULT NULL,
-  birth TIMESTAMP DEFAULT NULL, -- убрать NULL
+  birth TIMESTAMP DEFAULT NULL, ------------------------------------------------------------------- убрать NULL
+
+  password TEXT,
+  email TEXT UNIQUE,
 
   avatar_file TEXT, -- путь к файлу
   mas_photosFiles TEXT DEFAULT NULL, -- [1, 2, 3, 4, 5] - usersFiles
   mas_music TEXT DEFAULT NULL, -- [1, 2, 3, 4, 5] - musicFiles
 
   mas_posts TEXT DEFAULT NULL, -- [1, 2, 3, 4, 5] - usersPosts
-
-  password TEXT,
-  email TEXT UNIQUE,
 
   mas_friends TEXT DEFAULT NULL, -- [1, 2, 3, 4, 5]
   mas_chats TEXT DEFAULT NULL -- [1, 2, 3, 4, 5]

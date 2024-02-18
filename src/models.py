@@ -16,19 +16,19 @@ class usersM(BaseModel):
     s_name: Optional[str] = None
     city: Optional[str] = None
     birth : Optional[date] = None
-                                                                        # data = "01.01.2018"
-                                                                        # if datetime.datetime.strptime(date, "%d.%m.%Y):
-                                                                        #    print "it's a date"
-                                                                        # else:
-                                                                        #    print date
+                                    # data = "01.01.2018"
+                                    # if datetime.datetime.strptime(date, "%d.%m.%Y):
+                                    #    print "it's a date"
+                                    # else:
+                                    #    print date
+    password: Optional[constr(min_length=8, max_length=32)] = None
+    email: Optional[EmailStr] = None
+
     avatar_file: Optional[ Union[str, None] ] = None # file base64 str
     mas_photosFiles: Optional[str] = None
     mas_music: Optional[str] = None
 
     mas_posts: Optional[str] = None
-
-    password: Optional[constr(min_length=8, max_length=32)] = None
-    email: Optional[EmailStr] = None
 
     mas_friends: Optional[str] = None
     mas_chats: Optional[str] = None

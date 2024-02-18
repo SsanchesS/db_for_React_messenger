@@ -3,19 +3,38 @@ import json
 from src.base import base_worker
 from src.models import usersM
 
+from src.service.service import decode_and_write, get_and_encode
+
 def get_user(id):
-    user = base_worker.insert_data(f"SELECT * FROM users WHERE id = {id}",())
-    if user is None:
-        return None
-    else:
-        mas_friends = user[6]
-        mas_chats = user[7]
-        if user[6]:
-            mas_friends = json.loads(user[6])
-        if user[7]:
-            mas_chats = json.loads(user[7])
-        user = {"id":user[0],"f_name":user[1],"s_name":user[2],"password":None,"email":user[4],"avatarFile":user[5],"mas_friends":mas_friends,"mas_chats":mas_chats}
-        return user  
+    try:
+        user = base_worker.insert_data(f"SELECT * FROM users WHERE id = {id}",())
+        if user is None:
+            return None
+        else:
+            avatar_file = get_and_encode(user[7])
+            if not avatar_file:
+                print("Ошибка при создании файла")
+                return 500
+            mas_photosFiles = user[8]
+            mas_music = user[9]
+            mas_posts = user[10]
+            mas_friends = user[11]
+            mas_chats = user[12]
+            if mas_photosFiles:
+                mas_photosFiles = json.loads(user[8])
+            if mas_music:
+                mas_music = json.loads(user[9])
+            if mas_posts:
+                mas_posts = json.loads(user[10])
+            if mas_friends:
+                mas_friends = json.loads(user[11])
+            if mas_chats:
+                mas_chats = json.loads(user[12])
+            user = {"id":user[0],"f_name":user[1],"s_name":user[2],"city":user[3],"birth":user[4],"password":None,"email":None,"avatar_file":avatar_file,"mas_photosFiles":mas_photosFiles,"mas_music":mas_music,"mas_posts":mas_posts,"mas_friends":mas_friends,"mas_chats":mas_chats}
+            return user  
+    except Exception as e:
+        print(f"Ошибка {e}")
+        return 500
 
 def upd_user(id, user: usersM):
 
