@@ -1,9 +1,14 @@
+import os
 import base64
 import uuid   # Можно с uuid5
 import imghdr # для определения типа файла
 
-def decode_and_write(avatar_file):
+def decode_and_write(avatar_file,old_avatar_file_path=None):
     try:
+        if old_avatar_file_path is not None:
+            if not old_avatar_file_path == 'user_files/default_avatar_file.png':
+                os.remove(old_avatar_file_path)
+            
         image_type, avatar_file = avatar_file.split(',')  # Можно просто извлечь из image_type
 
         decoded_data = base64.b64decode(avatar_file)

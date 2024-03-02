@@ -19,7 +19,7 @@ def f_update_user(id: int, user: usersM):
     if user == 500:
         return {"code": 500, "message": "Ошибка сервера","user":None}
     if user is None:
-        return {"code": 404, "message": f"Пользователь с таким id: {id} не найден","user":None}
+        return {"code": 409, "message": f"Пользователь с таким email: уже существует","user":None}
     return {"code": 201, "message": "Успешно",'user': user}
 
 @users_router.delete('/{id}')

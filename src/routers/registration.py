@@ -11,5 +11,4 @@ def f_registration(user:usersM):
         return {"code": 500, "message": "Ошибка сервера","user":None}
     if user is None:
         return {"code": 401, "message": "Этот email уже занят","user":None}
-    else:
-        return {"code": 201, "message": "Ты зареган",'user': user}
+    return {"code": 201, "message": "Ты зареган",'user': user}

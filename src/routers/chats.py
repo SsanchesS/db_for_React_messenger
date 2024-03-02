@@ -19,7 +19,7 @@ def f_new_chat(chat: chatsM):
     if chat == 500:
         return {"code": 500, "message": "Ошибка сервера","chat":None}
     if chat is None:
-        return {"code": 404, "message": f"Ошибка","chat":None}
+        return {"code": 404, "message": f"Ошибка","chat":None} # бывает ли такое?
     return {"code": 201, "message": "Успешно",'chat': chat}
 
 @chats_router.put('/{id}')

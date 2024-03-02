@@ -11,5 +11,4 @@ def f_auth(user:LoginM):
         return {"code": 500, "message": "Ошибка сервера","user":None}
     if user is None:
         return {"code": 401, "message": "email или password не верны, попробуй снова","user":None}
-    else:
-        return {"code": 200, "message": "Ты вошёл",'user': user}
+    return {"code": 200, "message": "Ты вошёл",'user': user}

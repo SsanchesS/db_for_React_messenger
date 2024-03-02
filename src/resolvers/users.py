@@ -37,49 +37,79 @@ def get_user(id):
         return 500
 
 def upd_user(id, user: usersM):
+    try:
+        update_fields = []
 
-    update_fields = []
+        if user.f_name is not None and user.f_name != '':
+            update_fields.append(f"f_name = '{user.f_name}'")
 
-    if user.f_name is not None and user.f_name != '':
-        update_fields.append(f"f_name = '{user.f_name}'")
+        if user.s_name is not None and user.s_name != '':
+            update_fields.append(f"s_name = '{user.s_name}'")
+        
+        if user.city is not None and user.city != '':
+            update_fields.append(f"city = '{user.city}'")
 
-    if user.s_name is not None and user.s_name != '':
-        update_fields.append(f"s_name = '{user.s_name}'")
+        if user.birth is not None and user.birth != '':
+            update_fields.append(f"birth = '{user.birth}'") # Проверка? 
 
-    if user.password is not None and user.password != '':
-        update_fields.append(f"password = '{user.password}'")
+        if user.password is not None and user.password != '':
+            update_fields.append(f"password = '{user.password}'")
 
-    if user.email is not None and user.email != '':             ###############
-        update_fields.append(f"email = '{user.email}'")
-    
-    if user.avatarFile is not None and user.avatarFile != '':           ###############
-        update_fields.append(f"avatarFile = '{user.avatarFile}'")
+        if user.email is not None and user.email != '':
+            update_fields.append(f"email = '{user.email}'")
+        
+        if user.avatar_file is not None and user.avatar_file != '':           # создаем и добавляем путь
+            old_avatar_file_path = base_worker.insert_data(f"SELECT avatar_file FROM users WHERE id = {id}",())
 
-    if user.mas_friends is not None and user.mas_friends != '':
-        update_fields.append(f"mas_friends = '{user.mas_friends}'")
+            file_path = decode_and_write(user.avatar_file,old_avatar_file_path[0])
+            if not file_path:
+                print("Ошибка при создании файла")
+                return 500
+            update_fields.append(f"avatar_file = '{user.avatar_file}'")
+         
+        if user.mas_photosFiles is not None and user.mas_photosFiles != '':           #####################################################
+            update_fields.append(f"mas_photosFiles = '{user.mas_photosFiles}'")
 
-    if user.mas_chats is not None and user.mas_chats != '':
-        update_fields.append(f"mas_chats = '{user.mas_chats}'")
+        if user.mas_music is not None and user.mas_music != '':
+            update_fields.append(f"mas_music = '{user.mas_music}'")
 
-    update_fields_str = ', '.join(update_fields)
+        if user.mas_posts is not None and user.mas_posts != '':
+            update_fields.append(f"mas_posts = '{user.mas_posts}'")   
 
-    user_id = base_worker.insert_data(f"""
-        UPDATE users
-        SET {update_fields_str}
-        WHERE id = {id} 
-        RETURNING id;
-    """, ())
+        if user.mas_friends is not None and user.mas_friends != '':
+            print(user.mas_friends)                                                     #####################################################
+            update_fields.append(f"mas_friends = '{user.mas_friends}'")
 
-    if user_id is None:
-        return None
-    else:
-        user = {"id":user_id[0],"f_name":user.f_name,"s_name":user.s_name,"password":None,"email":user.email,"avatarFile":user.avatarFile,"mas_friends":user.mas_friends,"mas_chats":user.mas_chats}
-        return user 
+        if user.mas_chats is not None and user.mas_chats != '':
+            update_fields.append(f"mas_chats = '{user.mas_chats}'")
+
+        update_fields_str = ', '.join(update_fields)
+
+        try:
+            user_id = base_worker.insert_data(f"""
+            UPDATE users
+            SET {update_fields_str}
+            WHERE id = {id} 
+            RETURNING id;
+            """, ())
+        except sqlite3.IntegrityError as e:
+            print(f"Ошибка: {e}")
+            return None
+
+        user = {"id":user_id[0],"f_name":None,"s_name":None,"city":None,"birth":None,"password":None,"email":None,"avatar_file":None,"mas_photosFiles":None,"mas_music":None,"mas_posts":None,"mas_friends":None,"mas_chats":None}
+        return user  
+    except Exception as e:
+        print(f"Ошибка {e}")
+        return 500
 
 def del_user(id):
-    del_id = base_worker.insert_data(f"DELETE FROM users WHERE id = {id} RETURNING id;",())
-    if del_id is None:
-        return None
-    else:
-        user = {"id":del_id[0],"f_name":None,"s_name":None,"password":None,"email":None,"avatarFile":None,"mas_friends":None,"mas_chats":None}
-        return user 
+    try:
+        user_id = base_worker.insert_data(f"DELETE FROM users WHERE id = {id} RETURNING id;",())
+        if user_id is None:
+            return None
+        else:
+            user = {"id":user_id[0],"f_name":None,"s_name":None,"city":None,"birth":None,"password":None,"email":None,"avatar_file":None,"mas_photosFiles":None,"mas_music":None,"mas_posts":None,"mas_friends":None,"mas_chats":None}
+            return user  
+    except Exception as e:
+        print(f"Ошибка {e}")
+        return 500
