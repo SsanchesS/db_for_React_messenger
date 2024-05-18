@@ -1,7 +1,7 @@
 import sqlite3
 from src.models import usersM 
 from src.base import base_worker
-from src.service.service import decode_and_write
+from src.service.service import decode_and_write, get_and_encode
 
 def create_user(user:usersM):
     try:
@@ -29,10 +29,17 @@ def create_user(user:usersM):
         new_id = base_worker.insert_data(f"""
         INSERT INTO users ({fields_str})
         VALUES ({values_str})
-        RETURNING id;
-        """, ())
-        user = {"id":new_id[0],"f_name":user.f_name,"s_name":user.s_name,"password":None,"email":user.email,"avatar_file":file_path,"mas_friends":None,"mas_chats":None}
-        return user
+        RETURNING id;                                                                                                 
+        """, ())    
+        if new_id is None:
+            return None    
+        else:
+            avatar_file = get_and_encode(file_path)
+            if not avatar_file:
+                print("Ошибка при создании файла")
+                return 500                                                                                                                
+        user = {"id":new_id[0],"f_name":user.f_name,"s_name":user.s_name,"city":user.city,"birth":user.birth,"password":None,"email":user.email,"avatar_file":avatar_file,"mas_photosFiles":None,"mas_music":None,"mas_posts":None,"mas_friends":None,"mas_chats":None}
+        return user   
     except sqlite3.IntegrityError as e:
         print(f"Ошибка: {e}")
         return None

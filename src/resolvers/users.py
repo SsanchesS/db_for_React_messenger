@@ -30,7 +30,7 @@ def get_user(id):
                 mas_friends = json.loads(user[11])
             if mas_chats:
                 mas_chats = json.loads(user[12])
-            user = {"id":user[0],"f_name":user[1],"s_name":user[2],"city":user[3],"birth":user[4],"password":None,"email":None,"avatar_file":avatar_file,"mas_photosFiles":mas_photosFiles,"mas_music":mas_music,"mas_posts":mas_posts,"mas_friends":mas_friends,"mas_chats":mas_chats}
+            user = {"id":user[0],"f_name":user[1],"s_name":user[2],"city":user[3],"birth":user[4],"password":None,"email":user[6],"avatar_file":avatar_file,"mas_photosFiles":mas_photosFiles,"mas_music":mas_music,"mas_posts":mas_posts,"mas_friends":mas_friends,"mas_chats":mas_chats}
             return user  
     except Exception as e:
         print(f"Ошибка {e}")
